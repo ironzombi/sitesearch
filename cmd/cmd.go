@@ -37,3 +37,11 @@ func FindTag(url, keysearch, tagtype string) ([]string, error) {
 	}
 	return visit(keysearch, tagtype, nil, doc), nil
 }
+
+func CheckInput(text string) string {
+	if strings.HasPrefix(text, "http") {
+	  return text
+	} else {
+		return fmt.Sprintf("http://%s", text)
+	}
+}
