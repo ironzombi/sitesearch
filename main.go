@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"sitesearch/cmd"
 )
@@ -18,6 +19,10 @@ func main() {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
 	}
 	for _, link := range links {
-		fmt.Println(link)
+		if strings.HasPrefix(link, "http") {
+			fmt.Println(link)
+		} else {
+			continue
+		}
 	}
 }
