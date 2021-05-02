@@ -7,8 +7,8 @@ import (
 	"golang.org/x/net/html"
 )
 
-func visit(keysearch string, links []string, n *html.Node) []string {
-	if n.Type == html.ElementNode && n.Data == "a" {
+func visit(keysearch, tagtype string, links []string, n *html.Node) []string {
+	if n.Type == html.ElementNode && n.Data == tagtype {
 		for _, a := range n.Attr {
 			if a.Key == keysearch {
 				links = append(links, a.Val)
@@ -16,12 +16,12 @@ func visit(keysearch string, links []string, n *html.Node) []string {
 		}
 	}
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		links = visit(keysearch, links, c)
+		links = visit(keysearch, tagtype, links, c)
 	}
 	return links
 }
 
-func FindTag(url, keysearch string) ([]string, error) {
+func FindTag(url, keysearch, tagtype string) ([]string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -35,5 +35,5 @@ func FindTag(url, keysearch string) ([]string, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse %s as HTNL: %v", url, err)
 	}
-	return visit(keysearch, nil, doc), nil
+	return visit(keysearch, tagtype, nil, doc), nil
 }
