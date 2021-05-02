@@ -9,8 +9,8 @@ import (
 
 func main() {
 	text := os.Args[1:]
-	url     := cmd.CheckInput(text[0])
-	tag     := text[1]
+	url := cmd.CheckInput(text[0])
+	tag := text[1]
 	element := text[2]
 
 	links, err := cmd.FindTag(url, tag, element)

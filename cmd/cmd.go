@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"golang.org/x/net/html"
 )
@@ -40,7 +41,7 @@ func FindTag(url, keysearch, tagtype string) ([]string, error) {
 
 func CheckInput(text string) string {
 	if strings.HasPrefix(text, "http") {
-	  return text
+		return text
 	} else {
 		return fmt.Sprintf("http://%s", text)
 	}
